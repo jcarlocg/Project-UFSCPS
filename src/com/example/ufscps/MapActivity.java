@@ -8,16 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+
 
 public class MapActivity extends FragmentActivity implements LocationListener{
 	
@@ -29,7 +21,7 @@ public class MapActivity extends FragmentActivity implements LocationListener{
 	private double userLat, userLong;
 	private Room searchedRoom;
 	
-	private GoogleMap map;
+	CustomMap myMap;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,42 +38,14 @@ public class MapActivity extends FragmentActivity implements LocationListener{
         //===========================================================================================================
         //============================		 		INTERFACE INIT			  =======================================
         //===========================================================================================================
-        /*
-        room_Id = (TextView) findViewById(R.id.roomId);
-        roomDescription = (TextView) findViewById(R.id.roomDescription);
-        roomBuilding = (TextView) findViewById(R.id.roomBuilding);
-        roomFloor = (TextView) findViewById(R.id.roomFloor);
-        roomLatitude = (TextView) findViewById(R.id.roomLatitude);
-        roomLongitude = (TextView) findViewById(R.id.roomLongitude);
-        
-        userLatitude = (TextView) findViewById(R.id.userLatitude);
-        userLongitude = (TextView) findViewById(R.id.userLongitude);
-        
-        distance = (TextView) findViewById(R.id.distance);
-        
-        
-        room_Id.setText(searchedRoom.getRoomId());
-        roomDescription.setText(searchedRoom.getRoomDescription());
-    	roomLatitude.setText("RLat: " + searchedRoom.getLatitude());
-    	roomLongitude.setText("RLong: " + searchedRoom.getLongitude());
-        roomBuilding.setText(searchedRoom.getRoomBuilding());
-        roomFloor.setText(searchedRoom.getRoomFloor());
-        */
+  
         //===========================================================================================================
         //============================		 	     MAP STUFF				  =======================================
         //===========================================================================================================
         
-        map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment1)).getMap();
-        
-        Marker room = map.addMarker(new MarkerOptions()
-        .position(new LatLng(searchedRoom.getLatitude(), searchedRoom.getLongitude()))
-        .title("User")
-        .snippet("I'm here!")
-        .icon(BitmapDescriptorFactory
-            .fromResource(R.drawable.skyrim)));
-        
+        myMap = new CustomMap(getSupportFragmentManager());
 
-        
+        myMap.InsertRoomMarker(searchedRoom);
         
         
         //===========================================================================================================
@@ -125,17 +89,14 @@ public class MapActivity extends FragmentActivity implements LocationListener{
 		userLat = location.getLatitude();
 		userLong = location.getLongitude();
 		
+		/*
     	LatLng userCoordinates = new LatLng(userLat, userLong);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(userCoordinates, 16));
 		
-        Marker user = map.addMarker(new MarkerOptions()
-        .position(userCoordinates)
-        .title(searchedRoom.getRoomId())
-        .snippet(searchedRoom.getRoomBuilding() + " - " + searchedRoom.getRoomFloor())
-        .icon(BitmapDescriptorFactory
-            .fromResource(R.drawable.marvin_gif)));
+
         
 		double d = CalculateDistance(userLat, searchedRoom.getLatitude(), userLong, searchedRoom.getLongitude())*1000;
+		*/
 	}
 
 	@Override
@@ -156,33 +117,6 @@ public class MapActivity extends FragmentActivity implements LocationListener{
 		
 	}
 	
-	/**
-	 * This is the implementation Haversine Distance Algorithm between two places
-	 * @author ananth
-	 *  R = earth’s radius (mean radius = 6,371km)
-	    [DELTAlat = lat2- lat1
-	    [DELTA]long = long2- long1
-	    a = sin²([DELTA]lat/2) + cos(lat1).cos(lat2).sin²([DELTA]long/2)
-	    c = 2.atan2([SQRT]a, [SQRT](1-a))
-	    d = R.c
-	 *
-	 */
-    private double CalculateDistance(double lat1, double lat2, double lon1, double lon2) {
-        // TODO Auto-generated method stub
-        final int R = 6371; // Radious of the earth
-        Double latDistance = toRad(lat2-lat1);
-        Double lonDistance = toRad(lon2-lon1);
-        Double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) + 
-                   Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * 
-                   Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        Double distance = R * c;
-               
-        return distance; 
-    }
-     
-    private static Double toRad(Double value) {
-        return value * Math.PI / 180;
-    }
+
 
 }
