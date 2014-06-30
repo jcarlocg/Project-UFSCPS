@@ -1,26 +1,24 @@
 package com.example.ufscps;
 
-import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class CustomMap extends FragmentActivity{
 
 	private GoogleMap map;
+	private Marker userMarker;
 	
 	public CustomMap(FragmentManager f) {
 	    map = ((SupportMapFragment) f.findFragmentById(R.id.fragment1)).getMap();
-	    
 	}
 	
 	public void InsertRoomMarker(Room room) {
@@ -32,18 +30,15 @@ public class CustomMap extends FragmentActivity{
             .fromResource(R.drawable.skyrim)));
 	}
 	
-	private void InsertUserMarker(LatLng position) {
-        map.addMarker(new MarkerOptions()
-        .position(position)
-        .title("Você está aqui")
-        .snippet("")
-        .icon(BitmapDescriptorFactory
-            .fromResource(R.drawable.marvin_gif)));
-	}
-	
-	public void moveMapTo(LatLng position, float zoom) {
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom));	
-		InsertUserMarker(position);
+	public void moveMapTo(LatLng userPosition, float zoom) {
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(userPosition, zoom));
+
+		if(userMarker!=null) userMarker.remove();
+	    userMarker = map.addMarker(new MarkerOptions()
+	    .position(userPosition)
+	    .title("You are here")
+	    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marvin))
+	    .snippet("Your current location"));
 	}
 
     

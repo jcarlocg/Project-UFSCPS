@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+
 public class GPSAdapter extends FragmentActivity implements LocationListener {
 	
 	private LocationManager locationManager;
@@ -31,7 +32,7 @@ public class GPSAdapter extends FragmentActivity implements LocationListener {
        
 	    locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 100, 10, this);
 	    
-	    userLatLng = new LatLng(0,0);
+	    userLatLng = new LatLng(-27.6012, -48.5197); // coordenadas da reitoria
 	}
 
 	public LatLng getUserLatLng() {

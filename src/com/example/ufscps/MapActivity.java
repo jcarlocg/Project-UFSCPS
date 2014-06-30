@@ -1,5 +1,7 @@
 package com.example.ufscps;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
