@@ -1,50 +1,46 @@
 package com.example.ufscps;
 
-import android.app.AlertDialog;
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
-import android.view.View;
 
 
 
 public class MapActivity extends FragmentActivity {
+	/** MAP ACTIVITY **/
+    /** Called when the map is loaded */
 	
 	Context context = this;
-	private Room searchedRoom;
-	GPSAdapter myGPS;
-	CustomMap myMap;
+	private Room searchedRoom; // object with all the info about the room the user wanna go
+	GPSAdapter myGPS; // object that manages the GPS locations of the device
+	CustomMap myMap; // manages the google map
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.activity_map); // show activity_map on the screen
         
-        //===========================================================================================================
-        //============================		 		INTENT DATA				  =======================================
-        //===========================================================================================================
+        /**==========================================================================================================
+         **	Get the intent Data
+         **========================================================================================================*/
         
         final String roomId = getIntent().getStringExtra("ROOM_ID");
         searchedRoom = new Room(context, roomId);
         
-        //===========================================================================================================
-        //============================		 		INTERFACE INIT			  =======================================
-        //===========================================================================================================
-  
-        //===========================================================================================================
-        //============================		 	     MAP STUFF				  =======================================
-        //===========================================================================================================
+        /**==========================================================================================================
+         **	Setup the Map and insert roomMarker
+         **========================================================================================================*/
         
         myMap = new CustomMap(context, getSupportFragmentManager());
 
         myMap.InsertRoomMarker(searchedRoom);
         
-        //===========================================================================================================
-        //============================		 		GPS HANDLER				  =======================================
-        //===========================================================================================================
+        /**==========================================================================================================
+         **	Setup the GPS and update the location once
+         **========================================================================================================*/
         
         myGPS = new GPSAdapter(context, myMap.getUserMarker());
         
@@ -64,7 +60,12 @@ public class MapActivity extends FragmentActivity {
         timer.start();
 	}
 	
-    private Handler uiCallback = new Handler () {
+	
+    /**==========================================================================================================
+     **	Handler called by the thread timer only once 3 seconds after the creation of the thread
+     **========================================================================================================*/
+    @SuppressLint("HandlerLeak")
+	private Handler uiCallback = new Handler () {
         public void handleMessage (Message msg) {
         		myMap.moveMapTo(myGPS.getUserLatLng(), 16);
         		

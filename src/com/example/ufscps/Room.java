@@ -11,15 +11,24 @@ public class Room {
 	private double latitude;
 	private double longitude;
 
-	private TestAdapter mDbHelper;
+	private DataBaseAdapter mDbHelper;
 	private Cursor cursor;
 	
 	public Room(Context context, String _id) {
-        mDbHelper = new TestAdapter(context);  //inicializa a interface com a database
-        mDbHelper.open(); // abre a database
+		
+        /**==========================================================================================================
+         ** Setup the communication with the database to eecute querys locally
+         **========================================================================================================*/
+		
+        mDbHelper = new DataBaseAdapter(context);
+        mDbHelper.open();
+        
+        /**==========================================================================================================
+         ** get the elements of the screen
+         **========================================================================================================*/
         
         if(_id != null) {
-	        cursor = mDbHelper.Search(_id);
+	        cursor = mDbHelper.Search(_id); // find the room passed as parameter to the method
 	        
 	    	if (cursor.moveToFirst()) {
 	    		roomId = cursor.getString(cursor.getColumnIndex("_id"));
@@ -28,9 +37,13 @@ public class Room {
 	    		longitude = cursor.getDouble(cursor.getColumnIndex("longitude"));
 	    		roomFloor = cursor.getString(cursor.getColumnIndex("floor"));
 	    		roomBuilding = cursor.getString(cursor.getColumnIndex("building"));
-	        }
+	        } // Set up all the variables with information from the database
     	}
 	}
+	
+    /**==========================================================================================================
+     ** GETTERS
+     **========================================================================================================*/
 	
 	public String getRoomId() {
 		return roomId;
