@@ -93,4 +93,42 @@ public class DataBaseAdapter
 		
 		return cursor;
     }
+    
+    /**==========================================================================================================
+     ** @return the state of the alarm. On = true; Off = false;
+     **========================================================================================================*/
+    public boolean GetAlarmConfigState() {
+    	cursor = mDb.rawQuery("select onOff from Alarm", null);
+		
+    	if (cursor.moveToFirst()) {
+    		String alarmState = cursor.getString(0);
+    		
+    		if(alarmState.compareTo("On") == 0) {
+    			return true;
+    		} 
+    		else {
+    			return false;
+    		}
+    	}
+    	else return false;
+    }
+    
+    /**==============================================================================================================
+     ** @return a string that represents the distance between the user and the room that the alarm must be activated
+     **============================================================================================================*/
+    public String GetAlarmConfigDistance() {
+    	cursor = mDb.rawQuery("select distance from Alarm", null);
+		
+    	if (cursor.moveToFirst()) {
+    		return cursor.getString(0);
+    	}
+		return null;
+    }
+    
+    /**==========================================================================================================
+     ** Update the alarm configuration in the database
+     **========================================================================================================*/
+    public void updateConfig(String alarmState, String distance) {
+    	mDb.execSQL("UPDATE Alarm SET onOff='" + alarmState + "'," + "distance='" + distance + "'");
+    }
 }

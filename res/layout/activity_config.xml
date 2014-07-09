@@ -15,15 +15,6 @@
         android:text="Configurações"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Switch
-        android:id="@+id/alarmSwitch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:text="Alarm state" />
-
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
@@ -31,7 +22,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:text="Salvar" />
+        android:text="Salvar" 
+        android:onClick= "OnSave" />
 
     <EditText
         android:id="@+id/distTxtField"
@@ -42,7 +34,8 @@
         android:layout_marginTop="14dp"
         android:layout_toRightOf="@+id/distTxtView"
         android:ems="10"
-        android:inputType="number" />
+        android:inputType="number"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/distTxtView"
@@ -51,6 +44,27 @@
         android:layout_alignBottom="@+id/distTxtField"
         android:layout_alignParentLeft="true"
         android:text="Distância: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="18dp" />
+
+    <Switch
+        android:id="@+id/alarmSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="36dp"
+        android:text="Alarme: "
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/distTxtField"
+        android:layout_toRightOf="@+id/distTxtField"
+        android:text="metros."
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="18dp" />
 
 </RelativeLayout>
