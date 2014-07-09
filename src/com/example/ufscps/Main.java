@@ -78,10 +78,10 @@ public class Main extends Activity {
         roomListView.setOnItemClickListener(clkListener); 
     }
     
-    /**
-     * when the user types enter or presses the button Ok, this method is called and execute the entire search routine
-     * @param view - represent the current view.
-     */    
+    /**==========================================================================================================
+     ** when the user types enter or presses the button Ok, this method is called and execute the entire search routine
+     ** @param view - represent the current view.
+     **========================================================================================================*/    
     
     @SuppressWarnings("deprecation")
 	public void OnSearch(View view) {
@@ -95,5 +95,13 @@ public class Main extends Activity {
 	    	adapter = new SimpleCursorAdapter(this, R.layout.location_list_item, cursor, arrayColumns, arrayViewIDs);
 	    	roomListView.setAdapter(adapter);	// SimpleCursorAdapter is used to show the query results in the listView 
     	}
+    }
+    
+    /**==========================================================================================================
+     ** Go to configuration Screen
+     **========================================================================================================*/
+	public void OnConfig(View view) {
+	        Intent intent = new Intent(context, ConfigActivity.class);
+	    	startActivity(intent);
     }
 }

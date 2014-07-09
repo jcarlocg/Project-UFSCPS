@@ -135,7 +135,7 @@ public class CustomMap extends FragmentActivity{
         String infoString = searchedRoom.getRoomDescription() + "\n\n" +
         					"Prédio: " + searchedRoom.getRoomBuilding() + "\n" +
                             "Andar: " +  searchedRoom.getRoomFloor() + "\n\n" +
-        					"Distância: " + CalculateDistance(searchedRoom.getLatitude(), userMarker.getPosition().latitude, searchedRoom.getLongitude(), userMarker.getPosition().longitude);
+        					"Distância: " + CalculateDistance(searchedRoom.getLatitude(), userMarker.getPosition().latitude, searchedRoom.getLongitude(), userMarker.getPosition().longitude) + " metros";
     	
          AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 

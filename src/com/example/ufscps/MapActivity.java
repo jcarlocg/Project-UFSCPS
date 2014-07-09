@@ -2,10 +2,12 @@ package com.example.ufscps;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 
 
 
@@ -71,5 +73,13 @@ public class MapActivity extends FragmentActivity {
         		
         }
     };
+    
+    /**==========================================================================================================
+     ** Go to configuration Screen
+     **========================================================================================================*/
+	public void OnConfig(View view) {
+	        Intent intent = new Intent(context, ConfigActivity.class);
+	    	startActivity(intent);
+    }
     
 }
