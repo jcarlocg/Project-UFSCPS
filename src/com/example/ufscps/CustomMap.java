@@ -85,7 +85,7 @@ public class CustomMap extends FragmentActivity{
 	}
     
 	
-    
+ 
     /**==========================================================================================================
      ** This is the implementation Haversine Distance Algorithm between two places
      ** @param lat1 : a Double value that represents the latitude of the first position
@@ -122,6 +122,10 @@ public class CustomMap extends FragmentActivity{
         return value * Math.PI / 180;
     }
     
+    public int getDistance() {
+    	return CalculateDistance(searchedRoom.getLatitude(), userMarker.getPosition().latitude, searchedRoom.getLongitude(), userMarker.getPosition().longitude);
+    }
+    
     /**==========================================================================================================
      ** Called when the user clicks in the info window of the roomMarker
      **========================================================================================================*/
@@ -135,7 +139,7 @@ public class CustomMap extends FragmentActivity{
         String infoString = searchedRoom.getRoomDescription() + "\n\n" +
         					"Prédio: " + searchedRoom.getRoomBuilding() + "\n" +
                             "Andar: " +  searchedRoom.getRoomFloor() + "\n\n" +
-        					"Distância: " + CalculateDistance(searchedRoom.getLatitude(), userMarker.getPosition().latitude, searchedRoom.getLongitude(), userMarker.getPosition().longitude) + " metros";
+        					"Distância: " + getDistance() + " metros";
     	
          AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 

@@ -116,13 +116,13 @@ public class DataBaseAdapter
     /**==============================================================================================================
      ** @return a string that represents the distance between the user and the room that the alarm must be activated
      **============================================================================================================*/
-    public String GetAlarmConfigDistance() {
+    public int GetAlarmConfigDistance() {
     	cursor = mDb.rawQuery("select distance from Alarm", null);
 		
     	if (cursor.moveToFirst()) {
-    		return cursor.getString(0);
+    		return cursor.getInt(0);
     	}
-		return null;
+		return (Integer) null;
     }
     
     /**==========================================================================================================
