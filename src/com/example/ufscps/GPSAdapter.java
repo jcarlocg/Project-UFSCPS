@@ -1,6 +1,7 @@
 package com.example.ufscps;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 
 import android.content.Context;
 import android.location.Location;
@@ -9,12 +10,14 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+
 public class GPSAdapter extends FragmentActivity implements LocationListener {
 	
 	private LocationManager locationManager;
 	private LatLng userLatLng;
+	private Marker userMarker;
 	
-	public GPSAdapter(Context c) {
+	public GPSAdapter(Context c, Marker userMarker) {
         locationManager = (LocationManager) c.getSystemService(Context.LOCATION_SERVICE);
         
         /* CAL METHOD requestLocationUpdates */
@@ -31,7 +34,9 @@ public class GPSAdapter extends FragmentActivity implements LocationListener {
        
 	    locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 100, 10, this);
 	    
-	    userLatLng = new LatLng(0,0);
+	    userLatLng = new LatLng(-27.6012, -48.5197); // coordenadas da reitoria
+	    
+	    this.userMarker = userMarker;
 	}
 
 	public LatLng getUserLatLng() {
@@ -41,6 +46,7 @@ public class GPSAdapter extends FragmentActivity implements LocationListener {
 	@Override
 	public void onLocationChanged(Location location) {
 		userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+		userMarker.setPosition(userLatLng);
 	}
 
 	@Override
