@@ -34,7 +34,7 @@ public class ConfigActivity extends Activity {
         distanceText = (EditText) findViewById(R.id.distTxtField);
         alarmStateSwitch = (Switch) findViewById(R.id.alarmSwitch);
         
-        distanceText.setText(mDbHelper.GetAlarmConfigDistance());
+        distanceText.setText("" + mDbHelper.GetAlarmConfigDistance());
         alarmStateSwitch.setChecked(mDbHelper.GetAlarmConfigState());
         
 	}
@@ -42,7 +42,7 @@ public class ConfigActivity extends Activity {
 	
 	 /**==========================================================================================================
      ** Update all the values of the configuration screen to the database
-     ** then returns to the main screen
+     ** then returns to the previous activity
      **========================================================================================================*/
 	public void OnSave(View view) {
 		String tempDist = distanceText.getText().toString();
@@ -53,8 +53,7 @@ public class ConfigActivity extends Activity {
 			mDbHelper.updateConfig(alarmState, tempDist);
 		}
 		
-        Intent intent = new Intent(getBaseContext(), Main.class);
-    	startActivity(intent);
+		onBackPressed();
 	}
 
 }
